@@ -1,0 +1,33 @@
+User Role Controlled by Request Parameter
+Summary
+
+The application controls the user's admin role using a client-controlled cookie. By changing Admin=false to Admin=true, a normal user can access the admin panel.
+
+Steps
+Log in with the provided normal user account.
+Intercept the login response in Burp Suite.
+
+Find the cookie:
+
+Admin=false
+
+Change it to:
+
+Admin=true
+Access /admin and delete the user carlos.
+Impact
+
+A normal user can gain admin privileges and perform administrative actions, such as deleting users.
+
+PoC
+Cookie: Admin=true
+
+Then access:
+
+GET /admin HTTP/2
+
+The admin panel becomes accessible.
+
+Fix
+
+Do not store authorization or privilege information in a client-controlled cookie. Enforce the user's role server-side, using a secure session and proper authorization checks.
