@@ -1,0 +1,22 @@
+Unprotected Admin Functionality with Unpredictable URL
+Summary
+
+The admin panel is hidden behind an unpredictable URL, but there is no proper access control. The URL is disclosed in the application's JavaScript source, allowing a normal user to access the admin panel.
+
+Steps
+Review the application's page source or JavaScript.
+Find the hidden admin panel URL.
+Navigate to the disclosed admin URL.
+Delete the user carlos.
+Impact
+
+A normal user can access admin functionality and perform privileged actions, such as deleting users.
+
+PoC
+GET /administrator-panel-yb556 HTTP/2
+
+The admin panel is accessible without admin privileges.
+
+Fix
+
+Implement server-side authorization checks on the admin endpoint. Do not rely on hiding or obscuring the admin URL as a security control.
