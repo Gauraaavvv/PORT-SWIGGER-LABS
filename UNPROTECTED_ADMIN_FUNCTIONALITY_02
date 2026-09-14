@@ -1,0 +1,22 @@
+Unprotected Admin Functionality
+Summary
+
+The admin panel is accessible without proper access control. A normal user can access the admin panel and delete another user.
+
+Steps
+Open /robots.txt and find the path to the admin panel.
+Replace /robots.txt with /administrator-panel.
+The admin panel loads without requiring admin privileges.
+Delete the user carlos.
+Impact
+
+An attacker could access admin functionality and perform privileged actions, such as deleting users.
+
+PoC
+GET /administrator-panel HTTP/2
+
+The admin panel is accessible to an unauthorized user.
+
+Fix
+
+Enforce server-side authorization checks on all admin endpoints and verify that the current user has the required privileges before allowing administrative actions.
