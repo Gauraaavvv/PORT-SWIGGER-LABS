@@ -1,0 +1,24 @@
+Summary
+
+The filename parameter is vulnerable to path traversal. By changing its value to ../../../etc/passwd, the application reads a file outside the intended image directory.
+
+Steps
+Intercept the request for a product image in Burp Suite.
+Find the filename parameter.
+
+Change its value to:
+
+../../../etc/passwd
+Send the request and observe the response.
+Impact
+
+An attacker could read sensitive files from the server, such as configuration files, credentials, or application data.
+
+PoC
+GET /image?filename=../../../etc/passwd HTTP/2
+
+The response contains the contents of /etc/passwd.
+
+Fix
+
+Don't directly use user-controlled input as a file path. Validate the filename against an allowlist and make sure the resolved path stays inside the intended directory.
